@@ -3,6 +3,9 @@ import 'package:werdy/screens/adhkar_list_screen.dart';
 import 'package:werdy/screens/dashboard_screen.dart';
 import 'package:werdy/screens/quran_list_screen.dart';
 import 'package:werdy/screens/settings_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:werdy/providers/settings_provider.dart';
+import 'package:werdy/utils/app_strings.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final settings = Provider.of<SettingsProvider>(context);
     return Scaffold(
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentIndex,
@@ -31,26 +35,26 @@ class _HomeScreenState extends State<HomeScreen> {
             _currentIndex = index;
           });
         },
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.dashboard_outlined),
-            selectedIcon: Icon(Icons.dashboard),
-            label: 'Home',
+            icon: const Icon(Icons.dashboard_outlined),
+            selectedIcon: const Icon(Icons.dashboard),
+            label: AppStrings.get('home_tab', settings.languageCode),
           ),
           NavigationDestination(
-            icon: Icon(Icons.menu_book_rounded),
-            selectedIcon: Icon(Icons.menu_book),
-            label: 'Quran',
+            icon: const Icon(Icons.menu_book_rounded),
+            selectedIcon: const Icon(Icons.menu_book),
+            label: AppStrings.get('quran_tab', settings.languageCode),
           ),
           NavigationDestination(
-            icon: Icon(Icons.wb_twilight_rounded),
-            selectedIcon: Icon(Icons.wb_twilight),
-            label: 'Adhkar',
+            icon: const Icon(Icons.wb_twilight_rounded),
+            selectedIcon: const Icon(Icons.wb_twilight),
+            label: AppStrings.get('adhkar_title', settings.languageCode),
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings),
-            label: 'Settings',
+            icon: const Icon(Icons.settings_outlined),
+            selectedIcon: const Icon(Icons.settings),
+            label: AppStrings.get('settings', settings.languageCode),
           ),
         ],
       ),

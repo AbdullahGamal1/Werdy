@@ -29,22 +29,6 @@ class SettingsScreen extends StatelessWidget {
               settings.toggleTheme(value);
             },
           ),
-          ListTile(
-            title: Text(AppStrings.get('language', settings.languageCode)),
-            trailing: DropdownButton<String>(
-              value: settings.languageCode,
-              underline: Container(),
-              items: const [
-                DropdownMenuItem(value: 'en', child: Text('English')),
-                DropdownMenuItem(value: 'ar', child: Text('العربية')),
-              ],
-              onChanged: (value) {
-                if (value != null) {
-                  settings.setLanguage(value);
-                }
-              },
-            ),
-          ),
           const Divider(),
           _buildSectionHeader(
             context,

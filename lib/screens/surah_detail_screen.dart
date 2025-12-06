@@ -63,20 +63,40 @@ class SurahDetailScreen extends StatelessWidget {
               textAlign: TextAlign.justify,
               text: TextSpan(
                 children: [
-                  for (
-                    int i = 1;
-                    i <= quran.getVerseCount(surahNumber);
-                    i++
-                  ) ...[
-                    TextSpan(
-                      text: ' ${quran.getVerse(surahNumber, i)} ',
-                      style: GoogleFonts.getFont(
-                        settings.fontFamily,
-                        fontSize: settings.fontSize,
-                        color: Theme.of(context).textTheme.bodyLarge?.color,
-                        height: 2.2,
-                      ),
-                    ),
+                  for (int i = 1;
+                      i <= quran.getVerseCount(surahNumber);
+                      i++) ...[
+                    (() {
+                      String verseText = quran.getVerse(surahNumber, i);
+                      if (i == 1 && surahNumber != 1 && surahNumber != 9) {
+                        // Check for standard Basmala (from package)
+                        if (verseText.startsWith(quran.basmala)) {
+                          verseText =
+                              verseText.substring(quran.basmala.length).trim();
+                        }
+                        // Check for Simple Alef variant (common in some text versions)
+                        else {
+                          // Construct the variant with standard Alef (0x0627) instead of Alef Wasla (0x0671)
+                          // Or just matching the prefix blindly if it starts with 'Bismi'
+                          const String basmalaSimple =
+                              "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
+                          if (verseText.startsWith(basmalaSimple)) {
+                            verseText = verseText
+                                .substring(basmalaSimple.length)
+                                .trim();
+                          }
+                        }
+                      }
+                      return TextSpan(
+                        text: ' $verseText ',
+                        style: GoogleFonts.getFont(
+                          settings.fontFamily,
+                          fontSize: settings.fontSize,
+                          color: Theme.of(context).textTheme.bodyLarge?.color,
+                          height: 2.2,
+                        ),
+                      );
+                    }()),
                     WidgetSpan(
                       alignment: PlaceholderAlignment.middle,
                       child: Container(

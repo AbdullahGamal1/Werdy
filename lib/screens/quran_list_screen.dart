@@ -75,12 +75,12 @@ class _QuranListScreenState extends State<QuranListScreen> {
 
               if (_searchQuery.isNotEmpty &&
                   !surahName.toLowerCase().contains(
-                    _searchQuery.toLowerCase(),
-                  ) &&
+                        _searchQuery.toLowerCase(),
+                      ) &&
                   !surahNameArabic.contains(_searchQuery) &&
                   !englishNameTranslation.toLowerCase().contains(
-                    _searchQuery.toLowerCase(),
-                  )) {
+                        _searchQuery.toLowerCase(),
+                      )) {
                 return const SizedBox.shrink();
               }
 
@@ -128,7 +128,10 @@ class _QuranListScreenState extends State<QuranListScreen> {
               MaterialPageRoute(
                 builder: (context) => SurahDetailScreen(
                   surahNumber: number,
-                  surahName: arabicName,
+                  surahName:
+                      Localizations.localeOf(context).languageCode == 'ar'
+                          ? arabicName
+                          : name,
                 ),
               ),
             );
@@ -158,37 +161,48 @@ class _QuranListScreenState extends State<QuranListScreen> {
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        name,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
+                  child: Localizations.localeOf(context).languageCode == 'ar'
+                      ? Text(
+                          arabicName,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Text(
+                              translation,
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      Text(
-                        translation,
-                        style: TextStyle(color: Colors.grey[600], fontSize: 12),
-                      ),
-                    ],
-                  ),
                 ),
-                Hero(
-                  tag: 'surah_name_$number',
-                  child: Text(
-                    arabicName,
-                    style: TextStyle(
-                      fontFamily: 'Amiri',
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.primary,
-                      decoration:
-                          TextDecoration.none, // Fix for Hero text style
+                if (Localizations.localeOf(context).languageCode != 'ar')
+                  Hero(
+                    tag: 'surah_name_$number',
+                    child: Text(
+                      arabicName,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ),

@@ -8,7 +8,8 @@ plugins {
 android {
     namespace = "com.example.werdy"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    // ndkVersion omitted to allow Gradle/AGP to auto-detect or use system NDK.
+    // This avoids build failures if the pinned NDK is missing or corrupted.
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

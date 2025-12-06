@@ -134,11 +134,20 @@ class AppTheme {
           fontWeight: FontWeight.bold,
           color: isDark ? Colors.white : Colors.black87,
         ),
-        bodyLarge: baseTextTheme.bodyLarge?.copyWith(
+        titleMedium: headingsTextTheme.titleMedium?.copyWith(
+          color: isDark ? Colors.white : Colors.black87,
+        ),
+        titleSmall: headingsTextTheme.titleSmall?.copyWith(
+          color: isDark ? Colors.white : Colors.black87,
+        ),
+        bodyLarge: headingsTextTheme.bodyLarge?.copyWith(
           color: isDark ? Colors.white70 : Colors.black87,
         ),
-        bodyMedium: baseTextTheme.bodyMedium?.copyWith(
+        bodyMedium: headingsTextTheme.bodyMedium?.copyWith(
           color: isDark ? Colors.white70 : Colors.black87,
+        ),
+        bodySmall: headingsTextTheme.bodySmall?.copyWith(
+          color: isDark ? Colors.white60 : Colors.black54,
         ),
       ),
     );

@@ -118,7 +118,6 @@ class AdhkarListScreen extends StatelessWidget {
                         subtitle,
                         style: TextStyle(
                           color: Colors.grey[600],
-                          fontFamily: 'Amiri',
                           fontSize: 16,
                         ),
                       ),

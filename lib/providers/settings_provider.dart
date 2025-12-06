@@ -13,7 +13,7 @@ class SettingsProvider with ChangeNotifier {
   bool _eveningReminderEnabled = false;
   TimeOfDay _eveningReminderTime = const TimeOfDay(hour: 18, minute: 0);
 
-  String _languageCode = 'en';
+  String _languageCode = 'ar';
 
   ThemeMode get themeMode => _themeMode;
   double get fontSize => _fontSize;
@@ -102,7 +102,7 @@ class SettingsProvider with ChangeNotifier {
     _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
     _fontSize = prefs.getDouble('fontSize') ?? 18.0;
     _fontFamily = prefs.getString('fontFamily') ?? 'Amiri';
-    _languageCode = prefs.getString('languageCode') ?? 'en';
+    _languageCode = prefs.getString('languageCode') ?? 'ar';
 
     _morningReminderEnabled = prefs.getBool('morningReminderEnabled') ?? false;
     final mHour = prefs.getInt('morningReminderHour') ?? 6;

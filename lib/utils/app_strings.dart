@@ -24,8 +24,9 @@ class AppStrings {
       'search_surah': 'Search Surah...',
       'holy_quran': 'Holy Quran',
       'adhkar_title': 'Adhkar',
-      'language': 'Language',
       'select_language': 'Select Language',
+      'home_tab': 'Home',
+      'quran_tab': 'Quran',
     },
     'ar': {
       'app_title': 'وردي',
@@ -53,6 +54,8 @@ class AppStrings {
       'adhkar_title': 'الأذكار',
       'language': 'اللغة',
       'select_language': 'اختر اللغة',
+      'home_tab': 'الرئيسية',
+      'quran_tab': 'المصحف',
     },
   };
 
