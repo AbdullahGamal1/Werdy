@@ -8,15 +8,23 @@ import 'package:werdy/services/home_widget_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize critical services synchronously
   await NotificationService().init();
-  await NotificationService().scheduleSmartReminders();
-  await HomeWidgetService.updateWidget(); // Update widget on app launch
+
+  // Launch app immediately
   runApp(
     MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => SettingsProvider())],
       child: const MyApp(),
     ),
   );
+
+  // Schedule non-critical tasks in background after app starts
+  Future.microtask(() async {
+    await NotificationService().scheduleSmartReminders();
+    await HomeWidgetService.updateWidget();
+  });
 }
 
 class MyApp extends StatelessWidget {
