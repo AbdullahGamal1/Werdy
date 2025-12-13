@@ -11,3 +11,15 @@ class ArabNumeralConverter {
     return str;
   }
 }
+
+extension ArabicNumerals on int {
+  String toArabic() {
+    return ArabNumeralConverter.convert(this);
+  }
+}
+
+extension ArabicNumeralsString on String {
+  String toArabic() {
+    return ArabNumeralConverter.convert(this);
+  }
+}

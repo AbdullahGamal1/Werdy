@@ -4,6 +4,7 @@ import 'package:quran/quran.dart' as quran;
 import 'package:werdy/providers/settings_provider.dart';
 import 'package:werdy/screens/surah_detail_screen.dart';
 import 'package:werdy/utils/app_strings.dart';
+import 'package:werdy/utils/arab_numeral_converter.dart';
 
 class QuranListScreen extends StatefulWidget {
   const QuranListScreen({super.key});
@@ -75,12 +76,12 @@ class _QuranListScreenState extends State<QuranListScreen> {
 
               if (_searchQuery.isNotEmpty &&
                   !surahName.toLowerCase().contains(
-                        _searchQuery.toLowerCase(),
-                      ) &&
+                    _searchQuery.toLowerCase(),
+                  ) &&
                   !surahNameArabic.contains(_searchQuery) &&
                   !englishNameTranslation.toLowerCase().contains(
-                        _searchQuery.toLowerCase(),
-                      )) {
+                    _searchQuery.toLowerCase(),
+                  )) {
                 return const SizedBox.shrink();
               }
 
@@ -105,6 +106,8 @@ class _QuranListScreenState extends State<QuranListScreen> {
     String arabicName,
     String translation,
   ) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       decoration: BoxDecoration(
@@ -128,10 +131,7 @@ class _QuranListScreenState extends State<QuranListScreen> {
               MaterialPageRoute(
                 builder: (context) => SurahDetailScreen(
                   surahNumber: number,
-                  surahName:
-                      Localizations.localeOf(context).languageCode == 'ar'
-                          ? arabicName
-                          : name,
+                  surahName: arabicName, // Always pass Arabic name
                 ),
               ),
             );
@@ -151,58 +151,30 @@ class _QuranListScreenState extends State<QuranListScreen> {
                   ),
                   child: Center(
                     child: Text(
-                      '$number',
+                      number.toArabic(), // Use Arabic Numerals
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,
+                        fontFamily: 'Amiri', // Ensure Arabic font
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: Localizations.localeOf(context).languageCode == 'ar'
-                      ? Text(
-                          arabicName,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                        )
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              name,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                              ),
-                            ),
-                            Text(
-                              translation,
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                ),
-                if (Localizations.localeOf(context).languageCode != 'ar')
-                  Hero(
-                    tag: 'surah_name_$number',
-                    child: Text(
-                      arabicName,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                        decoration: TextDecoration.none,
-                      ),
+                  child: Text(
+                    arabicName,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      // Fix for Dark Mode: White text in dark, Primary in light
+                      color: isDark
+                          ? Colors.white
+                          : Theme.of(context).colorScheme.primary,
+                      fontFamily: 'Amiri', // Ensure Arabic font
                     ),
                   ),
+                ),
               ],
             ),
           ),
