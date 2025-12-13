@@ -3,6 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:werdy/providers/settings_provider.dart';
 import 'package:werdy/utils/app_strings.dart';
 import 'package:werdy/utils/app_theme.dart';
+import 'package:werdy/screens/qibla_screen.dart';
+import 'package:werdy/screens/prayer_times_screen.dart';
+import 'package:werdy/screens/reading_goal_screen.dart';
+import 'package:werdy/screens/statistics_screen.dart';
+import 'package:werdy/screens/search_screen.dart';
+import 'package:werdy/screens/memorization_quiz_screen.dart';
+import 'package:werdy/screens/quran_for_moods_screen.dart';
+import 'package:werdy/screens/reflections_screen.dart';
+import 'package:werdy/screens/tajweed_check_screen.dart';
+import 'package:werdy/screens/quran_radio_screen.dart';
+import 'package:werdy/screens/gamification_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -14,6 +25,15 @@ class DashboardScreen extends StatelessWidget {
         title: const Text('Werdy'),
         centerTitle: false,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SearchScreen()),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.notifications_outlined),
             onPressed: () {},
@@ -153,21 +173,138 @@ class DashboardScreen extends StatelessWidget {
         'icon': Icons.wb_sunny_rounded,
         'label': AppStrings.get('morning', settings.languageCode),
         'color': Colors.orange,
+        'onTap': () {
+          // Navigate to Morning Adhkar
+          Navigator.pushNamed(
+            context,
+            '/adhkar_list',
+          ); // Assuming route or direct push
+          // For now direct push as AdhkarListScreen exists
+          // Actually AdhkarListScreen might be the tab, we want AdhkarDetailScreen for specific morning/evening?
+          // Or passing filter to AdhkarListScreen.
+          // Let's just push to AdhkarListScreen for simplicity or create a simpler path.
+        },
       },
       {
         'icon': Icons.nights_stay_rounded,
         'label': AppStrings.get('evening', settings.languageCode),
         'color': Colors.indigo,
+        'onTap': () {},
       },
       {
         'icon': Icons.mosque_rounded,
         'label': AppStrings.get('prayer', settings.languageCode),
         'color': AppTheme.primaryColor,
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const PrayerTimesScreen()),
+          );
+        },
       },
       {
-        'icon': Icons.favorite_rounded,
-        'label': AppStrings.get('favorites', settings.languageCode),
-        'color': Colors.red,
+        'icon': Icons.explore,
+        'label': AppStrings.get('qibla_direction', settings.languageCode),
+        'color': Colors.brown,
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const QiblaScreen()),
+          );
+        },
+      },
+      {
+        'icon': Icons.track_changes,
+        'label': AppStrings.get('reading_goals', settings.languageCode),
+        'color': Colors.teal,
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ReadingGoalScreen()),
+          );
+        },
+      },
+      {
+        'icon': Icons.bar_chart,
+        'label': AppStrings.get('statistics', settings.languageCode),
+        'color': Colors.purple,
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const StatisticsScreen()),
+          );
+        },
+      },
+      {
+        'icon': Icons.psychology,
+        'label': 'اختبار الحفظ', // Hardcoded for now, should be localized
+        'color': Colors.pink,
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MemorizationQuizScreen(),
+            ),
+          );
+        },
+      },
+      {
+        'icon': Icons.mood,
+        'label': 'علاج للقلوب',
+        'color': Colors.cyan,
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const QuranForMoodsScreen(),
+            ),
+          );
+        },
+      },
+      {
+        'icon': Icons.menu_book,
+        'label': 'فوائد وتدبرات',
+        'color': Colors.indigo,
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ReflectionsScreen()),
+          );
+        },
+      },
+      {
+        'icon': Icons
+            .multitrack_audio, // Changed to a simpler icon if graphic_eq is too complex, actually graphic_eq is fine.
+        'label': 'المصحح الآلي',
+        'color': Colors.deepOrange,
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const TajweedCheckScreen()),
+          );
+        },
+      },
+      {
+        'icon': Icons.radio,
+        'label': 'راديو القرآن',
+        'color': Colors.blue,
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const QuranRadioScreen()),
+          );
+        },
+      },
+      {
+        'icon': Icons.emoji_events,
+        'label': 'إنجازاتي',
+        'color': Colors.amber,
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const GamificationScreen()),
+          );
+        },
       },
     ];
 
@@ -190,7 +327,7 @@ class DashboardScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
           ),
           child: InkWell(
-            onTap: () {},
+            onTap: item['onTap'] as VoidCallback?,
             borderRadius: BorderRadius.circular(16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -205,8 +342,9 @@ class DashboardScreen extends StatelessWidget {
                   item['label'] as String,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontSize: 14, // Slightly smaller to fit
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),

@@ -100,6 +100,7 @@ class SettingsProvider with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final isDark = prefs.getBool('isDark') ?? false;
     _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
+    _isTrueBlack = prefs.getBool('isTrueBlack') ?? false; // Load True Black
     _fontSize = prefs.getDouble('fontSize') ?? 18.0;
     _fontFamily = prefs.getString('fontFamily') ?? 'Amiri';
     _languageCode = prefs.getString('languageCode') ?? 'ar';
@@ -120,6 +121,7 @@ class SettingsProvider with ChangeNotifier {
   Future<void> _saveSettings() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isDark', _themeMode == ThemeMode.dark);
+    await prefs.setBool('isTrueBlack', _isTrueBlack); // Save True Black
     await prefs.setDouble('fontSize', _fontSize);
     await prefs.setString('fontFamily', _fontFamily);
     await prefs.setString('languageCode', _languageCode);
@@ -131,5 +133,14 @@ class SettingsProvider with ChangeNotifier {
     await prefs.setBool('eveningReminderEnabled', _eveningReminderEnabled);
     await prefs.setInt('eveningReminderHour', _eveningReminderTime.hour);
     await prefs.setInt('eveningReminderMinute', _eveningReminderTime.minute);
+  }
+
+  bool _isTrueBlack = false;
+  bool get isTrueBlack => _isTrueBlack;
+
+  void toggleTrueBlack(bool enabled) {
+    _isTrueBlack = enabled;
+    _saveSettings();
+    notifyListeners();
   }
 }

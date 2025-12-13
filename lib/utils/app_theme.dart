@@ -23,12 +23,12 @@ class AppTheme {
     );
   }
 
-  static ThemeData darkTheme(String? fontFamily) {
+  static ThemeData darkTheme(String? fontFamily, {bool isTrueBlack = false}) {
     return _buildTheme(
       brightness: Brightness.dark,
       baseColor: primaryColor,
-      surface: darkSurface,
-      cardColor: cardDark,
+      surface: isTrueBlack ? Colors.black : darkSurface,
+      cardColor: isTrueBlack ? const Color(0xFF101010) : cardDark,
       fontFamily: fontFamily,
     );
   }
@@ -80,7 +80,7 @@ class AppTheme {
       cardTheme: CardThemeData(
         color: cardColor,
         elevation: 4,
-        shadowColor: Colors.black.withOpacity(0.1),
+        shadowColor: Colors.black.withAlpha(26), // 0.1 * 255
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       ),
@@ -99,8 +99,8 @@ class AppTheme {
         elevation: 10,
         backgroundColor: cardColor,
         indicatorColor: isDark
-            ? secondaryColor.withOpacity(0.2)
-            : baseColor.withOpacity(0.15),
+            ? secondaryColor.withAlpha(51) // 0.2 * 255
+            : baseColor.withAlpha(38), // 0.15 * 255
         labelTextStyle: WidgetStateProperty.all(
           const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
         ),

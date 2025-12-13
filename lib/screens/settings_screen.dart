@@ -29,6 +29,16 @@ class SettingsScreen extends StatelessWidget {
               settings.toggleTheme(value);
             },
           ),
+          if (settings.themeMode == ThemeMode.dark)
+            SwitchListTile(
+              title: const Text('True Black Mode (OLED)'),
+              subtitle: const Text('Saves battery on OLED screens'),
+              activeColor: Colors.black,
+              value: settings.isTrueBlack,
+              onChanged: (value) {
+                settings.toggleTrueBlack(value);
+              },
+            ),
           const Divider(),
           _buildSectionHeader(
             context,

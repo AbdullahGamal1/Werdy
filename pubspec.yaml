@@ -34,14 +34,67 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  
+  # State Management
   provider: ^6.1.5+1
+  flutter_riverpod: ^2.6.1
+  
+  # Storage & Preferences
   shared_preferences: ^2.5.3
+  sqflite: ^2.3.3+2
+  path_provider: ^2.1.4
+  
+  # UI & Fonts
   google_fonts: ^6.3.2
-  flutter_local_notifications: ^19.5.0
-  quran: ^1.4.1
-  intl: ^0.20.2
   flutter_svg: ^2.2.3
+  cached_network_image: ^3.4.1
+  flutter_html: ^3.0.0-beta.2
+  
+  # Notifications
+  flutter_local_notifications: ^19.5.0
   timezone: ^0.10.1
+  
+  # Quran & Islamic
+  quran: ^1.4.1
+  adhan: ^2.0.0
+  hijri: ^3.0.0
+  
+  # Audio & Media
+  just_audio: ^0.9.40
+  audio_session: ^0.1.21
+  
+  # Location & Sensors
+  geolocator: ^13.0.2
+  flutter_compass: ^0.8.0
+  
+  # Network & Downloads
+  dio: ^5.7.0
+  http: ^1.2.2
+  
+  # Share & Export
+  share_plus: ^10.1.2
+  screenshot: ^3.0.0
+  image: ^4.3.0
+  
+  # Rich Text
+  # flutter_quill: ^10.8.6  # Temporarily disabled due to version conflict
+  
+  # Charts & Analytics
+  fl_chart: ^0.70.1
+  
+  # Widgets
+  home_widget: ^0.7.0
+  
+  # Calendar UI
+  flutter_calendar_carousel: ^2.4.3
+  
+  # Firebase (Cloud Sync)
+  firebase_core: ^3.8.1
+  firebase_auth: ^5.3.4
+  cloud_firestore: ^5.5.1
+  
+  # Date & Time
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
@@ -66,9 +119,10 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/
+    - assets/data/
+    - assets/audio/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
